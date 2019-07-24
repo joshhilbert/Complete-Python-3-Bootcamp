@@ -86,73 +86,54 @@ def replay():
     value = input("Play again? (Y\\N)")
 
     if value.lower() == 'y':
-        return True
+        main()
     else:
         print("Thanks for playing!")
-        return False
+        sys.exit()
 
 
 # Game program
 def main():
+    # Game set up
+    print("\n" * 50)
+    print('Welcome to Tic Tac Toe!\nBelow is the board with the corresponding keypad markers.\n')
+    sample_board = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
+    display_board(sample_board)
+
+    board = [' '] * 9
+
     while True:
-        print("\n" * 50)
+        # Player 1 Turn
+        print("Player 1's turn! (X)")
+        spot = space_check(board)
+        board = place_marker(board, 'X', spot)
 
-        # Use to show players cell selections
-        print('Welcome to Tic Tac Toe!\nBelow is the board with the corresponding keypad markers.\n')
+        winner = win_check(board)
+        draw = full_board_check(board)
 
-        sample_board = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
-        display_board(sample_board)
+        display_board(board)
+        if winner:
+            print("\nX wins!")
+            replay()
+        elif draw:
+            print("\nBoard full! Draw!")
+            replay()
 
-        # Set game up here
-        board = [' ' for x in sample_board]
-        game_on = True
+        # Player 2 Turn
+        print("Player 2's turn! (O)")
+        spot = space_check(board)
+        board = place_marker(board, 'O', spot)
 
-        while game_on:
-            # Player 1 Turn
-            print("Player 1's turn! (X)")
-            spot = space_check(board)
-            board = place_marker(board, 'X', spot)
+        winner = win_check(board)
+        draw = full_board_check(board)
 
-            winner = win_check(board)
-            draw = full_board_check(board)
-
-            display_board(board)
-
-            if winner:
-                print("X wins!")
-                if replay():
-                    main()
-                else:
-                    sys.exit()
-            elif draw:
-                print("Board full! Draw!")
-                replay()
-                if replay():
-                    main()
-                else:
-                    sys.exit()
-
-            # Player 2 Turn
-            print("Player 2's turn! (O)")
-
-            spot = space_check(board)
-            board = place_marker(board, 'O', spot)
-
-            winner = win_check(board)
-            draw = full_board_check(board)
-
-            display_board(board)
-
-            if winner:
-                print("O wins!")
-                replay()
-                if not replay():
-                    sys.exit()
-            elif draw:
-                print("Board full! Draw!")
-                replay()
-                if not replay():
-                    sys.exit()
+        display_board(board)
+        if winner:
+            print("\nO wins!")
+            replay()
+        elif draw:
+            print("\nBoard full! Draw!")
+            replay()
 
 
 # Start game
