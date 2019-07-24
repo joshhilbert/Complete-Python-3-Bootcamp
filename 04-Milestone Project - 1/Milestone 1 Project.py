@@ -23,37 +23,21 @@ def place_marker(board, marker, position):
 
 
 def win_check(board):
-    # horizontal wins
-    if board[6] == board[7] == board[8] and board[7] != ' ':
-        return True
-    elif board[3] == board[4] == board[5] and board[4] != ' ':
-        return True
-    elif board[0] == board[1] == board[2] and board[2] != ' ':
-        return True
-
-    # vertical wins
-    elif board[6] == board[3] == board[0] and board[3] != ' ':
-        return True
-    elif board[7] == board[4] == board[1] and board[4] != ' ':
-        return True
-    elif board[8] == board[5] == board[2] and board[5] != ' ':
-        return True
-
-    # diag wins
-    elif board[6] == board[4] == board[2] and board[4] != ' ':
-        return True
-    elif board[0] == board[4] == board[8] and board[4] != ' ':
-        return True
-    else:
-        return False
+    return ((board[6] == board[7] == board[8] and board[7] != ' ') or
+            (board[3] == board[4] == board[5] and board[4] != ' ') or
+            (board[0] == board[1] == board[2] and board[2] != ' ') or
+            (board[6] == board[3] == board[0] and board[3] != ' ') or
+            (board[7] == board[4] == board[1] and board[4] != ' ') or
+            (board[8] == board[5] == board[2] and board[5] != ' ') or
+            (board[6] == board[4] == board[2] and board[4] != ' ') or
+            (board[0] == board[4] == board[8] and board[4] != ' '))
 
 
 def space_check(board):
-    # default variable to enter for user input
     free = 'dummy'
     position = False
 
-    while position != free:
+    while not (position == free):
         position = input("Pick cell: ")
         try:
             i = int(position) - 1
@@ -75,8 +59,7 @@ def space_check(board):
 
 
 def full_board_check(board):
-    space = ' '
-    if [x for x in board if space in x]:
+    if [x for x in board if ' ' in x]:
         return False
     else:
         return True
@@ -92,7 +75,6 @@ def replay():
         sys.exit()
 
 
-# Game program
 def main():
     # Game set up
     print("\n" * 50)
