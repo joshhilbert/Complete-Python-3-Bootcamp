@@ -2,7 +2,6 @@
 import sys
 
 
-# Print board
 def display_board(board):
     print(board[6] + '|' + board[7] + '|' + board[8])
     print('------')
@@ -17,9 +16,7 @@ def place_marker(board, marker, position):
     for num, x in enumerate(board):
         if num == position:
             new_board.append(marker)
-            # print(marker)
         else:
-            # print(x)
             new_board.append(x)
 
     return new_board
@@ -51,7 +48,7 @@ def win_check(board):
         return False
 
 
-def space_check(board):  # COMPLETE
+def space_check(board):
     # default variable to enter for user input
     free = 'dummy'
     position = False
@@ -85,7 +82,7 @@ def full_board_check(board):
         return True
 
 
-def replay():  # COMPLETE
+def replay():
     value = input("Play again? (Y\\N)")
 
     if value.lower() == 'y':
@@ -113,12 +110,14 @@ def main():
         while game_on:
             # Player 1 Turn
             print("Player 1's turn! (X)")
-            # add full board check
             spot = space_check(board)
             board = place_marker(board, 'X', spot)
+
             winner = win_check(board)
             draw = full_board_check(board)
+
             display_board(board)
+
             if winner:
                 print("X wins!")
                 if replay():
@@ -135,12 +134,15 @@ def main():
 
             # Player 2 Turn
             print("Player 2's turn! (O)")
-            # add full board check
+
             spot = space_check(board)
             board = place_marker(board, 'O', spot)
+
             winner = win_check(board)
             draw = full_board_check(board)
+
             display_board(board)
+
             if winner:
                 print("O wins!")
                 replay()
